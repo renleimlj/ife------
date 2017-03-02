@@ -1,0 +1,124 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 05</title>
+    <style type="text/css">
+      li {
+        position: relative;
+        font-family: 微软雅黑;
+        padding: 10px;
+        margin: 10px;
+        list-style: none;
+        display: block;
+        float: left;
+        background: rgb(20,200,20);
+        width: 20px;
+        left: 20px;
+        top: 120px;
+      }
+    </style>
+
+  </head>
+<body>
+  <input type="text" id="num">
+  <button id="leftinsert">左侧入</button>
+  <button id="rightinsert">右侧入</button>
+  <button id="leftdelete">左侧出</button>
+  <button id="rightdelete">右侧出</button>
+  <button id="sort">排序</button>
+
+
+  <ul id="queue"></ul>
+
+
+<script type="text/javascript">
+  var qu = document.getElementById("queue");
+  var leftinsert = document.getElementById("leftinsert");
+  var rightinsert = document.getElementById("rightinsert");
+  var leftdelete = document.getElementById("leftdelete");
+  var rightdelete = document.getElementById("rightdelete");
+  var geshu = 0;
+  function lin(numb) {
+    if (geshu < 60) {
+      var ha = document.createElement("li");
+      ha.style.height = numb+'px';
+      qu.insertBefore(ha, qu.childNodes[0]);
+      geshu++;
+    } else {
+      alert("队列元素数量最多限制为60个");
+    }
+  }
+  function rde() {
+    if (qu.firstChild) {
+      qu.removeChild(qu.lastChild)
+    } else {
+      alert("队列已空")
+    }
+  }
+  function rin(numb) {
+    if (geshu < 60) {
+      var ha = document.createElement("li");
+      ha.style.height = numb+'px';
+      qu.appendChild(ha);
+      geshu++;
+    } else {
+      alert("队列元素数量最多限制为60个");
+    }
+  }
+  function lde() {
+    if (qu.firstChild) {
+      qu.removeChild(qu.firstChild)
+    } else {
+      alert("队列已空")
+    }
+  }
+
+  
+  leftinsert.onclick = function () {
+    var num = document.getElementById("num");
+    if (num.value >= 10 && num.value <= 100)
+      lin(num.value);
+    else
+      alert("数字在10-100之间");
+  };
+  rightinsert.onclick = function () {
+    var num = document.getElementById("num");
+    if (num.value >= 10 && num.value <= 100)
+     rin(num.value);
+    else
+      alert("数字在10-100之间");
+  };
+  leftdelete.onclick = function () {
+    lde();
+  };
+  rightdelete.onclick = function () {
+    rde();
+  };
+
+  qu.onclick = function (ev) {
+    var ev = ev || window.event;
+    var target = ev.target || ev.srcElement;
+    if (target.nodeName.toLowerCase() == 'li') {
+      qu.removeChild(target);
+    }
+  }
+
+  var so = document.getElementById("sort");
+  so.onclick = function () {
+    var qu = document.getElementById("queue");
+    var li = qu.getElementsByTagName("li");
+    for (var i = 0; i < li.length; i++) {
+      for (var j = li.length-1; j > i; j--) {
+        if (li[i].offsetHeight > li[j].offsetHeight) {
+          var temp = li[i].style.height;
+          li[i].style.height = li[j].style.height;
+          li[j].style.height = temp;
+        }
+      }
+    }
+  }
+
+</script>
+</body>
+</html>
