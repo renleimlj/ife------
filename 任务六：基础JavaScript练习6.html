@@ -1,0 +1,128 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 06</title>
+    <style type="text/css">
+      li {
+        font-family: 微软雅黑;
+        padding: 15px;
+        list-style: none;
+        display: inline;
+        background: rgb(20,200,20);
+        height: 20px;
+        width: 20px;
+        margin: 10px;
+      }
+    </style>
+
+  </head>
+<body>
+  <textarea type="text" id="num"></textarea>
+  <button id="leftinsert">左侧入</button>
+  <button id="rightinsert">右侧入</button>
+  <button id="leftdelete">左侧出</button>
+  <button id="rightdelete">右侧出</button>
+  <input type="text" id="find">
+  <button id="finda">Find</button>
+
+
+  <ul id="queue"></ul>
+
+
+<script type="text/javascript">
+  var qu = document.getElementById("queue");
+  var leftinsert = document.getElementById("leftinsert");
+  var rightinsert = document.getElementById("rightinsert");
+  var leftdelete = document.getElementById("leftdelete");
+  var rightdelete = document.getElementById("rightdelete");
+  var find = document.getElementById("find");
+  var finda = document.getElementById("finda");
+  function lin(numb) {
+    var ha = document.createElement("li");
+    ha.innerHTML = numb;
+    qu.insertBefore(ha, qu.childNodes[0]);
+  }
+  function rde() {
+    if (qu.firstChild) {
+      qu.removeChild(qu.lastChild)
+    } else {
+      alert("队列已空")
+    }
+  }
+  function rin(numb) {
+    var ha = document.createElement("li");
+    ha.innerHTML = numb;
+    qu.appendChild(ha);
+  }
+  function lde() {
+    if (qu.firstChild) {
+      qu.removeChild(qu.firstChild)
+    } else {
+      alert("队列已空")
+    }
+  }
+
+  
+  leftinsert.onclick = function () {
+    var num = document.getElementById("num");
+    var te = "";
+    for (var i = 0; i < num.value.length; i++) {
+      if ((num.value[i] == ' ' || num.value[i] == ',' || num.value[i] == '、' || num.value[i] == '\n') && te && te != ' ' && te != ',' && te != '、' && te != '\n') {
+        lin(te);
+        te = "";
+        continue;
+      } else {
+        if (!(num.value[i] == ' ' || num.value[i] == ',' || num.value[i] == '、' || num.value[i] == '\n'))
+        te += num.value[i];
+      }
+    }
+    if (te && te != ' ' && te != ',' && te != '、' && te != '\n')
+      lin(te);
+  };
+  rightinsert.onclick = function () {
+    var num = document.getElementById("num");
+    var te = "";
+    for (var i = 0; i < num.value.length; i++) {
+      if ((num.value[i] == ' ' || num.value[i] == ',' || num.value[i] == '、' || num.value[i] == '\n') && te && te != ' ' && te != ',' && te != '、' && te != '\n') {
+        rin(te);
+        te = "";
+        continue;
+      } else {
+        if (!(num.value[i] == ' ' || num.value[i] == ',' || num.value[i] == '、' || num.value[i] == '\n'))
+        te += num.value[i];
+      }
+    }
+    if (te && te != ' ' && te != ',' && te != '、' && te != '\n')
+      rin(te);
+  };
+  leftdelete.onclick = function () {
+    lde();
+  };
+  rightdelete.onclick = function () {
+    rde();
+  }; 
+
+  qu.onclick = function (ev) {
+    var ev = ev || window.event;
+    var target = ev.target || ev.srcElement;
+    if (target.nodeName.toLowerCase() == 'li') {
+      qu.removeChild(target);
+    }
+  }
+
+  finda.onclick = function () {
+    var te = find.value;
+    for (var  i = 0; i < qu.childNodes.length; i++) {
+      qu.childNodes[i].style.background = "rgb(20,200,20)";
+    }
+    for (var  i = 0; i < qu.childNodes.length; i++) {
+      if (te && qu.childNodes[i].innerHTML.indexOf(te) != -1) {
+        qu.childNodes[i].style.background = "blue";
+      }
+    }
+  }
+
+</script>
+</body>
+</html>
